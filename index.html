@@ -4,15 +4,17 @@
   <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FileCihuy</title>
+  <meta name="google-site-verification" content="DLBxg9MH2_pEa7wuMdTIwxzVed32QEzo9NyANSisgAA" />
       <meta name="theme-color" content="#F0F3F8" />
     <meta name="description" content="Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi." />
     <meta name="keywords" content="cihuy, FileCihuy, file, File, Cihuy, meme, ziz file cihuy blogspot com, filecihuy" />
+    <meta name="author" content="filecihuy.github.io">
 
     <meta property="og:title" content="Kelola File kamu secara Online, Tanpa ribet!" />
     <meta property="og:description" content="Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi." />
-    <meta property="og:url" content="https://ziz-filecihuy.blogspot.com" />
+    <meta property="og:url" content="https://filecihuy.github.io/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="ZizSongs" />
+    <meta property="og:site_name" content="FileCihuy" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/CLR7Y29M/20250728-000900.jpg" />
     <link rel="icon" type="image/png" sizes="16x16" href="https://i.postimg.cc/4dXwgxRj/20250728-000853.jpg" />
@@ -26,7 +28,7 @@
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "FileCihuy",
-            "url": "https://ziz-filecihuy.blogspot.com",
+            "url": "https://filecihuy.github.io/",
             "description": "Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi."
         }
     </script>
@@ -314,29 +316,129 @@
        }
      }
      @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+       from {
+         transform: rotate(0deg);
+       }
+       to {
+         transform: rotate(360deg);
+       }
+     }
 
-#CihuyLogo {
-  width: 33px;
-  height: 33px;
-  cursor: pointer;
-  margin-left: 0px;
-  margin-right: 19px;
-  /* Durasi diubah menjadi 10 detik (10s) agar lebih lambat */
-  animation: spin 7s linear infinite;
-}
+    #CihuyLogo {
+      width: 33px;
+      height: 33px;
+      cursor: pointer;
+      margin-left: 0px;
+      margin-right: 19px;
+      /* Durasi diubah menjadi 10 detik (10s) agar lebih lambat */
+      animation: spin 7s linear infinite;
+    }
+
+    .view-toggle-icon {
+        cursor: pointer;
+        margin-left: 10px; /* Adjust as needed for spacing */
+        display: inline-flex;
+        align-items: center;
+        vertical-align: middle;
+    }
+    .view-toggle-icon svg {
+        width: 24px;
+        height: 24px;
+        fill: #4b5563; /* Icon color */
+    }
+
+    /* Styles for list view in images */
+    .file-list-image {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-left: 24px;
+        margin-right: 22px;
+    }
+
+    /* Styles for grid view in images */
+    .image-grid-view {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 0 22px 0 24px;
+    }
+    .image-grid-item {
+        background:#fff;
+        border-radius:8px;
+        box-shadow:0 1px 4px rgba(0,0,0,0.04);
+        padding:10px;
+        text-align:center;
+        cursor:pointer;
+        transition: transform 0.2s;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:space-between;
+        height: 100%;
+    }
+    .image-grid-item:hover {
+        transform: scale(1.03);
+    }
+    .image-grid-item img {
+        width:100%;
+        height:100px;
+        object-fit:cover;
+        border-radius:6px;
+        margin-bottom: 8px;
+        pointer-events: none;
+    }
+    .image-grid-item .file-name {
+        font-size:0.9rem;
+        font-weight:bold;
+        word-break:break-word;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .image-grid-item .file-size {
+        font-size:0.8rem;
+        color:#888;
+    }
+
+    /* Styles for general file list items */
+    .file-list-item {
+        background:#fff;
+        border-radius:8px;
+        box-shadow:0 1px 4px rgba(0,0,0,0.04);
+        padding:14px 16px;
+        display:flex;
+        align-items:center;
+        gap:14px;
+        cursor:pointer;
+        transition: background-color 0.2s;
+    }
+    .file-list-item:hover {
+        background-color:#f9fafb;
+    }
+    .file-list-item .icon {
+        font-size: 2.25rem;
+        margin-right: 10px;
+    }
+    .file-list-item .file-details {
+        flex:1;
+    }
+    .file-list-item .file-details .file-name {
+        font-size:1rem;
+        font-weight:bold;
+        word-break:break-all;
+    }
+    .file-list-item .file-details .file-size {
+        font-size:.97rem;
+        color:#888;
+    }
 
   </style>
 </head>
 <body>
   <header>
-    <h1>FileCihuy</h1>
+    <h1 id="CihuyTittle">FileCihuy</h1>
     <div style="display: flex;justify-content: center; align-items: center;">
             <img id="openDialogBtn" style="width: 23px; height: 23px; margin-right: 12px" src="https://i.imghippo.com/files/Mjar6863IWI.png" />
 
@@ -439,7 +541,11 @@
      const db = firebase.database();
 
     document.getElementById("CihuyLogo").onclick = function() {
-      window.location.href = "https://ziz-filecihuy.blogspot.com/";
+      window.location.href = "https://filecihuy.github.io/";
+    };
+    
+        document.getElementById("CihuyTittle").onclick = function() {
+      window.location.href = "https://filecihuy.github.io/";
     };
 
     // Menonaktifkan klik kanan di seluruh dokumen
@@ -809,6 +915,59 @@
      };
 
      const fileListView = document.getElementById("file-list-view");
+     let currentImageViewMode = 'list'; // Default view for images
+     let currentImageData = null; // To store image data when "Images" card is clicked
+
+     // Function to render images based on the current view mode
+     function renderImages(val, category) {
+        let html = `<div style="font-weight:bold;font-size:1.1rem;margin-bottom:12px;text-align:left;margin-left:25px;display: flex;
+justify-content: space-between;
+align-items: center;">
+                        Daftar File: Images
+                        <span style="margin-right: 19px;" id="viewToggleIcon" class="view-toggle-icon">
+                            ${currentImageViewMode === 'list' ? 
+                                '<svg viewBox="0 0 24 24"><path d="M3 5V19C3 19.55 3.45 20 4 20H20C20.55 20 21 19.55 21 19V5C21 4.45 20.55 4 20 4H4C3.45 4 3 4.45 3 5ZM5 18V6H19V18H5ZM7 7H10V10H7V7ZM7 11H10V14H7V11ZM7 15H10V18H7V15ZM11 7H14V10H11V7ZM11 11H14V14H11V11ZM11 15H14V18H11V15ZM15 7H18V10H15V7ZM15 11H18V14H15V11ZM15 15H18V18H15V15Z"/></svg>' : // Grid icon
+                                '<svg viewBox="0 0 24 24"><path d="M4 14H10V20H4V14ZM14 14H20V20H14V14ZM4 4H10V10H4V4ZM14 4H20V10H14V4Z"/></svg>' // List icon
+                            }
+                        </span>
+                    </div>`;
+
+        if (currentImageViewMode === 'grid') {
+            html += `<div class="image-grid-view">`;
+            Object.entries(val).reverse().forEach(([key, item]) => {
+                html += `
+                    <div class="image-grid-item" onclick="showFileInfoDialog('${key}', '${category}')">
+                        <img src="${item.url}" alt="${item.name}">
+                        <div class="file-name" title="${item.name}">${item.name}</div>
+                        <div class="file-size">${item.size}</div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+        } else { // Default to list view for images
+            html += `<div class="file-list-image">`;
+            Object.entries(val).reverse().forEach(([key, item]) => {
+                html += `
+                    <div class="file-list-item" onclick="showFileInfoDialog('${key}', '${category}')">
+                        <span class="icon text-green">🖼️</span>
+                        <div class="file-details">
+                            <div class="file-name">${item.name}</div>
+                            <div class="file-size">${item.size}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+        }
+        fileListView.innerHTML = html;
+
+        // Add event listener to the newly created toggle icon
+        document.getElementById('viewToggleIcon').addEventListener('click', () => {
+            currentImageViewMode = currentImageViewMode === 'list' ? 'grid' : 'list';
+            renderImages(currentImageData, 'image'); // Re-render with updated mode
+        });
+     }
+
      document.querySelectorAll('.card').forEach(card => {
        card.addEventListener('click', async function() {
          const category = categoryMap[this.id];
@@ -826,57 +985,40 @@
              return;
            }
 
-           let html = `<div style="font-weight:bold;font-size:1.1rem;margin-bottom:12px;text-align:left;margin-left:25px;">Daftar File: ${card.querySelector('h3').textContent}</div>`;
-
-           // === Logika untuk menampilkan grid hanya untuk kategori 'image' ===
            if (category === 'image') {
-             html += `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin: 0 25px;">`;
-             Object.entries(val).reverse().forEach(([key, item]) => {
-               html += `
-                 <div style="background:#fff; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.04); padding:10px; text-align:center; cursor:pointer; transition: transform 0.2s; display:flex; flex-direction:column; align-items:center; justify-content:space-between; height: 100%;"
-                      onclick="showFileInfoDialog('${key}', '${category}')"
-                      onmouseover="this.style.transform='scale(1.03)'"
-                      onmouseout="this.style.transform='scale(1)'">
-                   <img src="${item.url}" alt="${item.name}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom: 8px; pointer-events: none;">
-                   <div style="font-size:0.9rem; font-weight:bold; word-break:break-word; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</div>
-                   <div style="font-size:0.8rem; color:#888;">${item.size}</div>
-                 </div>
-               `;
-             });
-             html += `</div>`;
-           } else { // Kategori selain 'image' (termasuk 'video') akan menggunakan list view
+             currentImageData = val; // Store image data
+             renderImages(val, category); // Render images (default to list mode initially)
+           } else { // Kategori selain 'image' akan selalu menggunakan list view
+             let html = `<div style="font-weight:bold;font-size:1.1rem;margin-bottom:12px;text-align:left;margin-left:25px;">Daftar File: ${card.querySelector('h3').textContent}</div>`;
              html += `<div style="display:flex;flex-direction:column;gap:13px;margin-left:25px;margin-right:25px;">`;
              Object.entries(val).reverse().forEach(([key, item]) => {
                let iconHtml = '';
                if (category === 'video') {
-                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">🎬</span>`; // Ikon video
+                   iconHtml = `<span class="icon text-red">🎬</span>`; // Ikon video
                } else if (category === 'music') {
-                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">🎵</span>`; // Ikon musik
+                   iconHtml = `<span class="icon text-purple">🎵</span>`; // Ikon musik
                } else if (category === 'document') {
-                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">📄</span>`; // Ikon dokumen
+                   iconHtml = `<span class="icon text-blue">📄</span>`; // Ikon dokumen
                } else if (category === 'archives') {
-                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">🗂️</span>`; // Ikon arsip
+                   iconHtml = `<span class="icon text-yellow">🗂️</span>`; // Ikon arsip
                } else {
-                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">📁</span>`; // Ikon umum
+                   iconHtml = `<span class="icon text-gray">📁</span>`; // Ikon umum
                }
 
                html += `
-                 <div style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);padding:14px 16px;display:flex;align-items:center;gap:14px; cursor:pointer; transition: background-color 0.2s;"
-                      onclick="showFileInfoDialog('${key}', '${category}')"
-                      onmouseover="this.style.backgroundColor='#f9fafb'"
-                      onmouseout="this.style.backgroundColor='#fff'">
+                 <div class="file-list-item" onclick="showFileInfoDialog('${key}', '${category}')">
                    ${iconHtml}
-                   <div style="flex:1;">
-                     <div style="font-size:1rem;font-weight:bold;word-break:break-all;">${item.name}</div>
-                     <div style="font-size:.97rem;color:#888;">${item.size}</div>
+                   <div class="file-details">
+                     <div class="file-name">${item.name}</div>
+                     <div class="file-size">${item.size}</div>
                    </div>
                  </div>
                `;
              });
              html += `</div>`;
+             fileListView.innerHTML = html;
            }
 
-           fileListView.innerHTML = html;
          } catch (e) {
            fileListView.innerHTML = `<div style="text-align:center;padding:22px;">Gagal mengambil data.</div>`;
          }
