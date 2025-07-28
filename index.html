@@ -672,7 +672,7 @@
            <span><strong>Tipe</strong>: ${fileData.type}</span>
            <span><strong>Tgl Upload</strong>: ${fileData.date}</span>
            ${fileData.duration ? `<span><strong>Durasi</strong>: ${fileData.duration}</span>` : ''}
-           <span style="display:flex; flex-wrap:wrap; gap: 4px;"><strong>URL</strong>: <a href="#" onclick="event.preventDefault(); copyToClipboard('${fileData.url}')" style="word-break:break-all; color: #3b82f6; text-decoration:none; cursor:pointer;">Copy Link</a></span>
+           <span style="display:none; flex-wrap:wrap; gap: 4px;"><strong>URL</strong>: <a href="#" onclick="event.preventDefault(); copyToClipboard('${fileData.url}')" style="word-break:break-all; color: #3b82f6; text-decoration:none; cursor:pointer;">Copy Link</a></span>
          `;
 
          detailFileInfo.innerHTML = infoHtml;
