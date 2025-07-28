@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FileCihuy</title>
+      <meta name="theme-color" content="#F0F3F8" />
+    <meta name="description" content="Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi." />
+    <meta name="keywords" content="cihuy, FileCihuy, file, File, Cihuy, meme, ziz file cihuy blogspot com, filecihuy" />
+
+    <meta property="og:title" content="Kelola File kamu secara Online, Tanpa ribet!" />
+    <meta property="og:description" content="Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi." />
+    <meta property="og:url" content="https://ziz-filecihuy.blogspot.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ZizSongs" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/CLR7Y29M/20250728-000900.jpg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://i.postimg.cc/4dXwgxRj/20250728-000853.jpg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/ZKXcqch8/20250728-000907.jpg" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  
+      <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "FileCihuy",
+            "url": "https://ziz-filecihuy.blogspot.com",
+            "description": "Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi."
+        }
+    </script>
+  <style>
+     /* Reset */
+     * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       -webkit-tap-highlight-color: rgba(100, 100, 100, 0.1);
+     }
+     body {
+       font-family: sans-serif;
+       background-color: #f3f4f6;
+       /* bg-gray-100 */
+       color: #1f2937;
+       /* text-gray-800 */
+     }
+     header {
+       background-color: #fff;
+       border-bottom: 1px solid #e5e7eb;
+       /* border-gray-200 */
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+     }
+     header h1 {
+       margin: 25px;
+       font-size: 20px;
+       font-weight: 700;
+       /* font-bold */
+     }
+     section.intro {
+       padding: 2.5rem 1.5rem;
+       /* py-10 px-6 */
+       max-width: 768px;
+       /* max-w-3xl */
+       margin: 0 auto;
+     }
+     section.intro h2 {
+       font-size: 30px;
+       /* text-3xl */
+       font-weight: 800;
+       /* font-extrabold */
+       margin-bottom: 1rem;
+       text-align: left;
+     }
+     section.intro p {
+       font-size: 15px;
+       color: #4b5563;
+       /* text-gray-600 */
+       text-align: left;
+     }
+     main {
+       padding: 1.5rem;
+       max-width: 1280px;
+       /* max-w-7xl */
+       margin: 0 auto;
+     }
+     .grid {
+       display: grid;
+       grid-template-columns: repeat(2, 1fr);
+       gap: 1rem;
+     }
+     @media (min-width: 768px) {
+       .grid {
+         grid-template-columns: repeat(3, 1fr);
+       }
+     }
+     @media (min-width: 1024px) {
+       .grid {
+         grid-template-columns: repeat(6, 1fr);
+       }
+     }
+     .card {
+       background-color: #fff;
+       padding: 1rem;
+       border-radius: 0.5rem;
+       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+       transition: box-shadow 0.3s;
+       cursor: pointer;
+     }
+     .card:hover {
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     }
+     .icon {
+       font-size: 2.25rem;
+       /* text-4xl */
+       margin-bottom: 0.5rem;
+     }
+     .text-blue { color: #2563eb; }
+     .text-green { color: #10b981; }
+     .text-red { color: #ef4444; }
+     .text-yellow { color: #facc15; }
+     .text-purple { color: #8b5cf6; }
+     .text-gray { color: #6b7280; }
+     .card h3 {
+       font-weight: 700;
+     }
+     .card p {
+       font-size: 0.875rem;
+       color: #6b7280;
+     }
+     .footer {
+       margin-top: 20px;
+       padding: 40px;
+       text-align: center;
+       font-size: 14px;
+       color: #9ca3af;
+     }
+     .primary-btn {
+       background: #3b82f6;
+       color: #fff;
+       border: none;
+       padding: 12px 28px;
+       border-radius: 6px;
+       font-size: 1rem;
+       cursor: pointer;
+       font-weight: 600;
+     }
+     .primary-btn[disabled] {
+       background: #b5bec6;
+       cursor: not-allowed;
+       opacity: 0.7;
+     }
+     #uploadDialog,
+     #fileInfoDialog {
+       display: none;
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background: rgba(40, 42, 55, 0.19);
+       align-items: center;
+       justify-content: center;
+       z-index: 1000;
+     }
+     .dialog-content {
+       backdrop-filter: blur(15px);
+       background-color: rgba(255, 255, 255, 0.7);
+       padding: 32px 28px 24px;
+       border-radius: 18px;
+       min-width: 340px;
+       max-width: 98vw;
+       box-shadow: 0 8px 40px 0 rgba(31, 41, 55, 0.13);
+       position: relative;
+       opacity: 0;
+       transform: scale(0.97) translateY(30px);
+       transition: opacity 0.26s cubic-bezier(0.4, 2.2, 0.4, 1), transform 0.26s cubic-bezier(0.4, 2.2, 0.4, 1);
+     }
+     .dialog-content.show {
+       opacity: 1;
+       transform: scale(1) translateY(0);
+     }
+     .dialog-content.hide {
+       opacity: 0;
+       transform: scale(0.97) translateY(30px);
+       pointer-events: none;
+     }
+     .close-btn {
+       position: absolute;
+       top: 14px;
+       right: 16px;
+       border: none;
+       background: none;
+       font-size: 1.3rem;
+       color: #888;
+       cursor: pointer;
+     }
+     .custom-file {
+       background: #f3f7fa;
+       border: 1px dashed #b5bec6;
+       border-radius: 7px;
+       padding: 22px 0;
+       margin-bottom: 18px;
+       text-align: center;
+     }
+     .custom-file input {
+       display: none;
+     }
+     .custom-file label {
+       color: #3b82f6;
+       font-weight: 600;
+       font-size: 1rem;
+       cursor: pointer;
+     }
+     .custom-file.dragover {
+       border-color: #3b82f6;
+       background: #e0edff;
+     }
+     .info {
+       margin-bottom: 18px;
+       background: #f9fafb;
+       border-radius: 6px;
+       padding: 14px 18px;
+       color: #3b3c42;
+       font-size: 0.98rem;
+       border: 1px solid #e5e7eb;
+       display: none;
+       flex-direction: column;
+       gap: 8px;
+     }
+     .filename-ellipsis {
+       display: inline-block;
+       max-width: 180px;
+       vertical-align: bottom;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+     }
+     .action-btns {
+       display: flex;
+       gap: 8px;
+       justify-content: flex-end;
+       margin-top: 10px;
+     }
+     /* Toast Style */
+     #toast-container {
+       position: fixed;
+       left: 50%;
+       bottom: 0;
+       transform: translateX(-50%);
+       z-index: 9999;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       pointer-events: none;
+     }
+     .toast {
+       visibility: hidden;
+       min-width: 250px;
+       background-color: #fff;
+       color: #111;
+       text-align: center;
+       border-radius: 12px;
+       padding: 14px 20px;
+       position: fixed;
+       bottom: -60px;
+       left: 50%;
+       transform: translateX(-50%);
+       z-index: 100;
+       font-size: 15px;
+       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+       transition: bottom 0.4s cubic-bezier(.4, 2.2, .4, 1), visibility 0s linear 0.4s, opacity 0.4s;
+       opacity: 0;
+       pointer-events: all;
+     }
+     .toast.show {
+       visibility: visible;
+       bottom: 30px;
+       opacity: 1;
+       transition: bottom 0.4s cubic-bezier(.4, 2.2, .4, 1), opacity 0.4s;
+     }
+     .toast.hide {
+       bottom: -60px;
+       opacity: 0;
+       transition: bottom 0.4s cubic-bezier(.4, 2.2, .4, 1), opacity 0.4s;
+     }
+     @keyframes toastIn {
+       from {
+         opacity: 0;
+         transform: translateY(30px) scale(0.98);
+       }
+       to {
+         opacity: 1;
+         transform: none;
+       }
+     }
+     @media (max-width: 600px) {
+       #toast-container {
+         right: 6px;
+         bottom: 6px;
+       }
+       .toast {
+         max-width: 94vw;
+         padding: 14px 8px;
+       }
+     }
+     @media (max-width: 500px) {
+       .dialog-content {
+         min-width: unset;
+         width: 96vw;
+         margin: 0 2vw;
+       }
+     }
+     @keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#CihuyLogo {
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+  margin-left: 0px;
+  margin-right: 19px;
+  /* Durasi diubah menjadi 10 detik (10s) agar lebih lambat */
+  animation: spin 7s linear infinite;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FileCihuy</h1>
+    <div style="display: flex;justify-content: center; align-items: center;">
+            <img id="openDialogBtn" style="width: 23px; height: 23px; margin-right: 12px" src="https://i.imghippo.com/files/Mjar6863IWI.png" />
+
+    <img id="CihuyLogo" style="width: 33px; height: 33px; cursor: pointer; margin-left: 0px;  margin-right: 19px" src="https://i.imghippo.com/files/KsP9711fdI.png" />
+</div>
+  </header>
+  <div id="uploadDialog">
+    <div class="dialog-content">
+      <button class="close-btn" onclick="closeDialog()">&times;</button>
+      <h3 style="margin-bottom: 25px">Upload File</h3>
+      <div class="custom-file" id="dropArea" tabindex="0">
+        <input type="file" id="fileInput" />
+        <label for="fileInput">Pilih file dari perangkat Anda</label>
+      </div>
+      <div class="info" id="fileInfo"></div>
+      <div class="action-btns">
+        <button class="primary-btn" style="background: #e5e7eb; color: #3b3c42" onclick="closeDialog()">Batal</button>
+        <button id="uploadBtn" class="primary-btn" disabled>Upload</button>
+      </div>
+    </div>
+  </div>
+  <div id="fileInfoDialog">
+    <div class="dialog-content">
+      <button class="close-btn">&times;</button>
+      <h3 style="margin-bottom: 25px">Informasi File</h3>
+      <div class="info" id="detailFileInfo" style="display: flex;"></div>
+      
+      <div style="margin-top: 20px;">
+        <label for="passwordInput" style="font-size: 0.9rem; color: #3b3c42;">Password:</label>
+        <input type="password" id="passwordInput" placeholder="Masukkan password untuk melanjutkan" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #e5e7eb; margin-top: 4px;">
+      </div>
+      <div class="action-btns">
+        <button id="deleteFileBtn" class="primary-btn" style="background: #ef4444;">Hapus</button>
+        <button id="downloadFileBtn" class="primary-btn">Download</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast-container"></div>
+  <section class="intro">
+    <h2>Kelola File Kamu Secara Online, Tanpa Ribet</h2>
+    <p>
+      Gunakan FileCihuy untuk mengelola dan berbagi file secara digital dari
+      perangkat apa pun. Aman, cepat, dan tanpa perlu instalasi.
+    </p>
+  </section>
+  <main>
+    <section>
+      <div class="grid">
+        <div id="card-document" class="card">
+          <div class="icon text-blue">📄</div>
+          <h3>Documents</h3>
+          <p>PDF, DOCX, XLSX</p>
+        </div>
+        <div id="card-image" class="card">
+          <div class="icon text-green">🖼️</div>
+          <h3>Images</h3>
+          <p>PNG, JPG, SVG</p>
+        </div>
+        <div id="card-video" class="card">
+          <div class="icon text-red">🎬</div>
+          <h3>Videos</h3>
+          <p>MP4, MOV</p>
+        </div>
+        <div id="card-archives" class="card">
+          <div class="icon text-yellow">🗂️</div>
+          <h3>Archives</h3>
+          <p>ZIP, RAR</p>
+        </div>
+        <div id="card-music" class="card">
+          <div class="icon text-purple">🎵</div>
+          <h3>Music</h3>
+          <p>MP3, WAV</p>
+        </div>
+        <div id="card-others" class="card">
+          <div class="icon text-gray">📁</div>
+          <h3>Others</h3>
+          <p>MORE FILES</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="file-list-view" style="max-width:1280px;margin:30px auto 0;display:none;"></div>
+  <div class="footer">
+    &copy; 2025 FileCihuy. All rights reserved.
+  </div>
+  <script>
+     // === Firebase Init ===
+     const firebaseConfig = {
+       apiKey: "AIzaSyCMGJnWBMUryJxTh_6s3tJhX-pwhl7Vr5Y",
+       authDomain: "cat-store-557dd.firebaseapp.com",
+       databaseURL: "https://cat-store-557dd-default-rtdb.asia-southeast1.firebasedatabase.app",
+       projectId: "cat-store-557dd",
+       storageBucket: "cat-store-557dd.appspot.com",
+       messagingSenderId: "889973624541",
+       appId: "1:889973624541:web:965d8b8f6b539e54ac5534",
+       measurementId: "G-ZTL1W4RHXH",
+     };
+     firebase.initializeApp(firebaseConfig);
+     const storage = firebase.storage();
+     const db = firebase.database();
+
+    document.getElementById("CihuyLogo").onclick = function() {
+      window.location.href = "https://ziz-filecihuy.blogspot.com/";
+    };
+
+    // Menonaktifkan klik kanan di seluruh dokumen
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+     // === TOAST MINIMALIS ===
+     function showToast(type, text) {
+       const toastContainer = document.getElementById("toast-container");
+       const oldToast = toastContainer.querySelector(".toast");
+       if (oldToast) oldToast.remove();
+       const toast = document.createElement("div");
+       toast.className = "toast";
+       toast.innerHTML = `<span style="flex:1">${text}</span>`;
+       toastContainer.appendChild(toast);
+       setTimeout(() => toast.classList.add("show"), 10);
+       setTimeout(() => {
+         toast.classList.remove("show");
+         toast.classList.add("hide");
+         setTimeout(() => toast.remove(), 500);
+       }, 3000);
+     }
+
+     // === FUNGSI BARU UNTUK COPY LINK ===
+     async function copyToClipboard(text) {
+        if (!navigator.clipboard) {
+            showToast('failed', 'Browser tidak mendukung fitur ini.');
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast('success', 'Link berhasil disalin! 🎉');
+        } catch (err) {
+            showToast('failed', 'Gagal menyalin link.');
+            console.error('Gagal menyalin link:', err);
+        }
+     }
+
+     // === UI Logic ===
+     const openBtn = document.getElementById("openDialogBtn");
+     const dialog = document.getElementById("uploadDialog");
+     const dialogContent = dialog.querySelector(".dialog-content");
+     const fileInput = document.getElementById("fileInput");
+     const fileInfo = document.getElementById("fileInfo");
+     const uploadBtn = document.getElementById("uploadBtn");
+     const dropArea = document.getElementById("dropArea");
+     const fileInfoDialog = document.getElementById("fileInfoDialog");
+     const fileInfoDialogContent = fileInfoDialog.querySelector(".dialog-content");
+     const detailFileInfo = document.getElementById("detailFileInfo");
+     const deleteFileBtn = document.getElementById("deleteFileBtn");
+     const downloadFileBtn = document.getElementById("downloadFileBtn");
+     const closeInfoDialogBtn = fileInfoDialog.querySelector(".close-btn");
+     let selectedFile = null;
+     let fileCategory = null;
+     let isUploading = false;
+     // Animasi buka dialog
+     function openDialog() {
+       dialog.style.display = "flex";
+       setTimeout(() => dialogContent.classList.add("show"), 10);
+       dialogContent.classList.remove("hide");
+       fileInput.value = "";
+       fileInfo.innerHTML = "";
+       fileInfo.style.display = "none";
+       uploadBtn.disabled = true;
+       uploadBtn.textContent = "Upload";
+       selectedFile = null;
+       isUploading = false;
+     }
+     // Animasi tutup dialog
+     function closeDialog() {
+       dialogContent.classList.remove("show");
+       dialogContent.classList.add("hide");
+       setTimeout(() => {
+         dialog.style.display = "none";
+         dialogContent.classList.remove("hide");
+       }, 260);
+       fileInput.value = "";
+       fileInfo.innerHTML = "";
+       fileInfo.style.display = "none";
+       uploadBtn.disabled = true;
+       uploadBtn.textContent = "Upload";
+       selectedFile = null;
+       isUploading = false;
+     }
+     function closeFileInfoDialog() {
+       fileInfoDialogContent.classList.remove("show");
+       fileInfoDialogContent.classList.add("hide");
+       setTimeout(() => {
+         fileInfoDialog.style.display = "none";
+         fileInfoDialogContent.classList.remove("hide");
+       }, 260);
+     }
+     openBtn.onclick = openDialog;
+     closeInfoDialogBtn.onclick = closeFileInfoDialog;
+     // Menutup dialog saat klik di luar area konten
+     dialog.addEventListener('click', (event) => {
+       if (event.target === dialog) {
+         closeDialog();
+       }
+     });
+     fileInfoDialog.addEventListener('click', (event) => {
+       if (event.target === fileInfoDialog) {
+         closeFileInfoDialog();
+       }
+     });
+     
+     // FUNGSI YANG DIUBAH
+     async function showFileInfoDialog(key, category) {
+       try {
+         const fileRef = db.ref(`FileCihuy/${category}/${key}`);
+         const snap = await fileRef.once('value');
+         const fileData = snap.val();
+         if (!fileData) {
+           showToast('failed', 'File tidak ditemukan.');
+           return;
+         }
+         // Mengosongkan field password setiap kali dialog dibuka
+         const passwordInput = document.getElementById("passwordInput");
+         passwordInput.value = "";
+         
+         let infoHtml = `
+           <span><strong>Nama</strong>: <span style="word-break:break-all;">${fileData.name}</span></span>
+           <span><strong>Ukuran</strong>: ${fileData.size}</span>
+           <span><strong>Tipe</strong>: ${fileData.type}</span>
+           <span><strong>Tgl Upload</strong>: ${fileData.date}</span>
+           ${fileData.duration ? `<span><strong>Durasi</strong>: ${fileData.duration}</span>` : ''}
+           <span style="display:flex; flex-wrap:wrap; gap: 4px;"><strong>URL</strong>: <a href="#" onclick="event.preventDefault(); copyToClipboard('${fileData.url}')" style="word-break:break-all; color: #3b82f6; text-decoration:none; cursor:pointer;">Copy Link</a></span>
+         `;
+
+         detailFileInfo.innerHTML = infoHtml;
+         const correctPassword = "2580";
+         // Atur aksi tombol download
+         downloadFileBtn.onclick = () => {
+           const enteredPassword = passwordInput.value;
+           if (!enteredPassword) {
+             showToast('failed', 'Password harus diisi!');
+             return;
+           }
+           if (enteredPassword === correctPassword) {
+             showToast('success', 'Memulai download...');
+             window.open(fileData.url, '_blank');
+           } else {
+             showToast('failed', 'Password salah!');
+           }
+         };
+         // Atur aksi tombol hapus
+         deleteFileBtn.onclick = async () => {
+           const enteredPassword = passwordInput.value;
+           if (!enteredPassword) {
+             showToast('failed', 'Password harus diisi!');
+             return;
+           }
+           if (enteredPassword === correctPassword) {
+             if (confirm(`Apakah Anda yakin ingin menghapus file "${fileData.name}"?`)) {
+               try {
+                 // 1. Hapus dari Storage
+                 const storageRef = storage.refFromURL(fileData.url);
+                 await storageRef.delete();
+                 // 2. Hapus dari Database
+                 await fileRef.remove();
+                 showToast('success', 'File berhasil dihapus.');
+                 closeFileInfoDialog();
+                 const categoryCardId = `card-${category === 'more' ? 'others' : category}`;
+                 document.getElementById(categoryCardId).click();
+               } catch (err) {
+                 showToast('failed', 'Gagal menghapus file: ' + err.message);
+               }
+             }
+           } else {
+             showToast('failed', 'Password salah!');
+           }
+         };
+         // Tampilkan dialog
+         fileInfoDialog.style.display = "flex";
+         setTimeout(() => fileInfoDialogContent.classList.add("show"), 10);
+         fileInfoDialogContent.classList.remove("hide");
+       } catch (e) {
+         showToast('failed', 'Gagal mengambil info file: ' + e.message);
+       }
+     }
+     function formatSize(bytes) {
+       if (bytes >= 1024 * 1024 * 1024) {
+         return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+       } else if (bytes >= 1024 * 1024) {
+         return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+       } else if (bytes >= 1024) {
+         return (bytes / 1024).toFixed(2) + " KB";
+       } else {
+         return bytes + " B";
+       }
+     }
+     function ellipsisFilename(name, maxLen = 18) {
+       if (name.length <= maxLen) return name;
+       const dotIndex = name.lastIndexOf(".");
+       if (dotIndex === -1) return name.substring(0, maxLen - 3) + "...";
+       const ext = name.substring(dotIndex);
+       const base = name.substring(0, maxLen - 3 - ext.length);
+       return base + "..." + ext;
+     }
+     function getCategory(ext) {
+       ext = ext.toLowerCase();
+       if ([".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"].includes(ext)) return "image";
+       if ([".mp4", ".mkv", ".mov", ".avi", ".wmv", ".webm"].includes(ext)) return "video";
+       if ([".mp3", ".wav", ".ogg", ".aac", ".flac", ".m4a"].includes(ext)) return "music";
+       if ([".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt", ".csv", ".html", ".css", ".js", ".json", ".xml", ".md"].includes(ext)) return "document";
+       if ([".zip", ".rar", ".7z", ".tar", ".gz", ".bz2"].includes(ext)) return "archives";
+       if (ext === ".apk") return "apk";
+       return "more";
+     }
+     function getTodayString() {
+       const date = new Date();
+       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+       return `${date.getDate().toString().padStart(2, "0")}/${months[date.getMonth()]}/${date.getFullYear().toString().slice(-2)}`;
+     }
+     fileInput.onchange = function() {
+       const file = fileInput.files[0];
+       if (!file) {
+         fileInfo.style.display = "none";
+         uploadBtn.disabled = true;
+         selectedFile = null;
+         return;
+       }
+       selectedFile = file;
+       const name = file.name;
+       const ext = name.lastIndexOf(".") !== -1 ? name.substring(name.lastIndexOf(".")).toLowerCase() : "";
+       fileCategory = getCategory(ext);
+       const sizeStr = formatSize(file.size);
+       const shortName = ellipsisFilename(name, 18);
+       let infoHtml = `
+         <span><strong>Nama</strong> : <span class="filename-ellipsis" title="${name}">${shortName}</span></span>
+         <span><strong>Ukuran</strong> : ${sizeStr}</span>
+         <span><strong>Ekstensi</strong> : ${ext}</span>
+       `;
+       if (fileCategory === "apk") {
+         uploadBtn.disabled = true;
+         setTimeout(() => showToast("failed", "Maaf, file bertipe <b>APK</b> tidak diperbolehkan diupload."), 250);
+       } else {
+         uploadBtn.disabled = false;
+         if (fileCategory === "video" || fileCategory === "music") {
+           const url = URL.createObjectURL(file);
+           const media = document.createElement(fileCategory === "video" ? "video" : "audio");
+           media.preload = "metadata";
+           media.src = url;
+           media.onloadedmetadata = function() {
+             URL.revokeObjectURL(url);
+             const dur = Math.floor(media.duration);
+             const hrs = Math.floor(dur / 3600);
+             const min = Math.floor((dur % 3600) / 60);
+             const sec = dur % 60;
+             let timeStr = hrs > 0 ?
+               `${hrs}:${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}` :
+               `${min}:${sec.toString().padStart(2, "0")}`;
+             infoHtml += `<span><strong>Durasi</strong> : ${timeStr}</span>`;
+             fileInfo.innerHTML = infoHtml;
+             fileInfo.style.display = "flex";
+           };
+           media.style.display = "none";
+           document.body.appendChild(media);
+           media.onloadeddata = () => setTimeout(() => document.body.removeChild(media), 500);
+         }
+       }
+       fileInfo.innerHTML = infoHtml;
+       fileInfo.style.display = "flex";
+     };
+     uploadBtn.onclick = async function() {
+       if (isUploading || !selectedFile || fileCategory === "apk") return;
+       isUploading = true;
+       uploadBtn.textContent = "Uploading...";
+       uploadBtn.disabled = true;
+       const storagePath = `FileCihuy/${fileCategory}/${selectedFile.name}`;
+       const storageRef = storage.ref(storagePath);
+       try {
+         const uploadTask = storageRef.put(selectedFile);
+         uploadTask.on(
+           "state_changed",
+           (snapshot) => {
+             const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+             uploadBtn.textContent = `Uploading... ${percent}%`;
+           },
+           (error) => {
+             showToast("failed", "Upload gagal: " + error.message);
+             uploadBtn.textContent = "Upload";
+             uploadBtn.disabled = false;
+             isUploading = false;
+           },
+           async () => {
+             const url = await uploadTask.snapshot.ref.getDownloadURL();
+             const today = getTodayString();
+             const ext = selectedFile.name.lastIndexOf(".") !== -1 ? selectedFile.name.substring(selectedFile.name.lastIndexOf(".")).toLowerCase() : "";
+             const meta = {
+               name: selectedFile.name,
+               url,
+               ext,
+               type: fileCategory,
+               size: formatSize(selectedFile.size),
+               date: today,
+             };
+             if (fileCategory === "video" || fileCategory === "music") {
+               const tempUrl = await storageRef.getDownloadURL();
+               const media = document.createElement(fileCategory === "video" ? "video" : "audio");
+               media.src = tempUrl;
+               await new Promise((res) => {
+                 media.onloadedmetadata = res;
+               });
+               const dur = Math.floor(media.duration);
+               const hrs = Math.floor(dur / 3600);
+               const min = Math.floor((dur % 3600) / 60);
+               const sec = dur % 60;
+               let timeStr = hrs > 0 ?
+                 `${hrs}:${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}` :
+                 `${min}:${sec.toString().padStart(2, "0")}`;
+               meta.duration = timeStr;
+             }
+             await db.ref(`FileCihuy/${fileCategory}`).push(meta);
+             showToast("success", "File berhasil diupload!");
+             closeDialog();
+             uploadBtn.textContent = "Upload";
+             isUploading = false;
+           }
+         );
+       } catch (e) {
+         showToast("failed", "Upload gagal: " + e.message);
+         uploadBtn.textContent = "Upload";
+         uploadBtn.disabled = false;
+         isUploading = false;
+       }
+     };
+     // Aksesibilitas: Enter pada card file
+     dropArea.addEventListener("keydown", (e) => {
+       if (e.key === "Enter" || e.key === " ") {
+         dropArea.querySelector("label").click();
+       }
+     });
+     // DRAG & DROP SUPPORT
+     dropArea.addEventListener("dragover", (e) => {
+       e.preventDefault();
+       e.stopPropagation();
+       dropArea.classList.add("dragover");
+     });
+     dropArea.addEventListener("dragleave", (e) => {
+       e.preventDefault();
+       e.stopPropagation();
+       dropArea.classList.remove("dragover");
+     });
+     dropArea.addEventListener("drop", (e) => {
+       e.preventDefault();
+       e.stopPropagation();
+       dropArea.classList.remove("dragover");
+       const files = e.dataTransfer.files;
+       if (files && files.length > 0) {
+         fileInput.files = files;
+         fileInput.dispatchEvent(new Event("change"));
+       }
+     });
+     // Klik area (selain label) tetap buka file picker
+     dropArea.addEventListener("click", (e) => {
+       if (e.target === dropArea) fileInput.click();
+     });
+     // Mapping kategori ke DB
+     const categoryMap = {
+       "card-document": "document",
+       "card-image": "image",
+       "card-video": "video",
+       "card-archives": "archives",
+       "card-music": "music",
+       "card-others": "more"
+     };
+
+     const fileListView = document.getElementById("file-list-view");
+     document.querySelectorAll('.card').forEach(card => {
+       card.addEventListener('click', async function() {
+         const category = categoryMap[this.id];
+         if (!category) return;
+
+         fileListView.innerHTML = `<div style="text-align:center;padding:22px;">Loading...</div>`;
+         fileListView.style.display = "block";
+
+         try {
+           const snap = await db.ref(`FileCihuy/${category}`).once('value');
+           const val = snap.val();
+
+           if (!val) {
+             fileListView.innerHTML = `<div style="text-align:center;padding:22px;">Tidak ada file ditemukan.</div>`;
+             return;
+           }
+
+           let html = `<div style="font-weight:bold;font-size:1.1rem;margin-bottom:12px;text-align:left;margin-left:25px;">Daftar File: ${card.querySelector('h3').textContent}</div>`;
+
+           // === Logika untuk menampilkan grid hanya untuk kategori 'image' ===
+           if (category === 'image') {
+             html += `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin: 0 25px;">`;
+             Object.entries(val).reverse().forEach(([key, item]) => {
+               html += `
+                 <div style="background:#fff; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.04); padding:10px; text-align:center; cursor:pointer; transition: transform 0.2s; display:flex; flex-direction:column; align-items:center; justify-content:space-between; height: 100%;"
+                      onclick="showFileInfoDialog('${key}', '${category}')"
+                      onmouseover="this.style.transform='scale(1.03)'"
+                      onmouseout="this.style.transform='scale(1)'">
+                   <img src="${item.url}" alt="${item.name}" style="width:100%; height:100px; object-fit:cover; border-radius:6px; margin-bottom: 8px; pointer-events: none;">
+                   <div style="font-size:0.9rem; font-weight:bold; word-break:break-word; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</div>
+                   <div style="font-size:0.8rem; color:#888;">${item.size}</div>
+                 </div>
+               `;
+             });
+             html += `</div>`;
+           } else { // Kategori selain 'image' (termasuk 'video') akan menggunakan list view
+             html += `<div style="display:flex;flex-direction:column;gap:13px;margin-left:25px;margin-right:25px;">`;
+             Object.entries(val).reverse().forEach(([key, item]) => {
+               let iconHtml = '';
+               if (category === 'video') {
+                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">🎬</span>`; // Ikon video
+               } else if (category === 'music') {
+                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">🎵</span>`; // Ikon musik
+               } else if (category === 'document') {
+                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">📄</span>`; // Ikon dokumen
+               } else if (category === 'archives') {
+                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">🗂️</span>`; // Ikon arsip
+               } else {
+                   iconHtml = `<span style="font-size: 2.25rem; margin-right: 10px;">📁</span>`; // Ikon umum
+               }
+
+               html += `
+                 <div style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);padding:14px 16px;display:flex;align-items:center;gap:14px; cursor:pointer; transition: background-color 0.2s;"
+                      onclick="showFileInfoDialog('${key}', '${category}')"
+                      onmouseover="this.style.backgroundColor='#f9fafb'"
+                      onmouseout="this.style.backgroundColor='#fff'">
+                   ${iconHtml}
+                   <div style="flex:1;">
+                     <div style="font-size:1rem;font-weight:bold;word-break:break-all;">${item.name}</div>
+                     <div style="font-size:.97rem;color:#888;">${item.size}</div>
+                   </div>
+                 </div>
+               `;
+             });
+             html += `</div>`;
+           }
+
+           fileListView.innerHTML = html;
+         } catch (e) {
+           fileListView.innerHTML = `<div style="text-align:center;padding:22px;">Gagal mengambil data.</div>`;
+         }
+       });
+     });
+  </script>
+</body>
+</html>
